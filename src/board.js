@@ -1,23 +1,6 @@
-class Game {
-constructor (numberOfRows, numberOfColumns, numberOfBombs) {
-  this._board= new Board (numberOfRows, numberOfColumns, numberOfBombs);
-}
-  playMove (rowIndex, columnIndex) {
-    this._board.flipTile (rowIndex, columnIndex);
-    if (this._board.playerBoard[rowIndex][columnIndex] === 'B'){
-      console.log ('Game Over');
-      this._board.print();
-    } else if (!this._board.hasSafeTiles()){
-      console.log('You won');
-    } else {
-      console.log('Current board:');
-      this._board.print();
-    }
-  }
-}
 
 
-class Board {
+export class Board {
   constructor(numberOfRows, numberOfColumns,numberOfBombs){
     this._numberOfBombs = numberOfBombs;
     this._numberOfTiles = (numberOfRows * numberOfColumns);
@@ -105,29 +88,3 @@ static generateBombBoard (numberOfRows, numberOfColumns, numberOfBombs) {
 
 }
 
-
-const getNumberOfNeighborBombs = (bombBoard, rowIndex, columnIndex) => {
-  const neighborOffsets = [[-1, -1],[-1, 0], [-1, 1], [0, -1],  [0, 1], [1, -1], [1, 0], [1, 1]];
-
-  const numberOfRows = bombBoard.length;
-  const numberOfColumns = bombBoard[0].length;
-
-  let numberOfBombs = 0;
-
-  neighborOffsets.forEach(offset => {
-    const neighborRowIndex = rowIndex + offset[0];
-    const neighborColumnIndex = columnIndex + offset[1];
-    if (neighborRowIndex >= 0 && neighborRowIndex < numberOfRows &&
-        neighborColumnIndex >= 0 && neighborColumnIndex < numberOfColumns) {
-      if (bombBoard[neighborRowIndex][neighborColumnIndex] === 'B') {
-        numberOfBombs++;
-      }
-    }
-  });
-  return numberOfBombs;
-};
-
-
-
-const g = new Game (3, 3, 8);
-g.playMove(0, 0);
