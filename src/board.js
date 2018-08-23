@@ -1,6 +1,16 @@
 
 
 export class Board {
+  constructor(numberOfRows, numberOfColumns,numberOfBombs){
+    this._numberOfBombs = numberOfBombs;
+    this._numberOfTiles = (numberOfRows * numberOfColumns);
+    this._playerBoard = Board.generatePlayerBoard (numberOfRows,numberOfColumns);
+    this._bombBoard = Board.generateBombBoard (numberOfRows, numberOfColumns, numberOfBombs);
+  };
+
+  get playerBoard () {
+  return this._playerBoard
+}
 
 flipTile (rowIndex, columnIndex) {
   if (this._playerBoard[rowIndex][columnIndex] !== ' ') {
@@ -77,3 +87,4 @@ static generateBombBoard (numberOfRows, numberOfColumns, numberOfBombs) {
 };
 
 }
+
